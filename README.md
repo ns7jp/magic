@@ -8,8 +8,7 @@
 ![jQuery](https://img.shields.io/badge/jQuery-Lightbox-0769AD?logo=jquery&logoColor=white)
 ![Responsive](https://img.shields.io/badge/Responsive-Mobile%20First-success)
 
-🔗 **ライブデモ**: http://shimada.atwebpages.com/magic/
-
+🔗 **ライブデモ**: https://ns7jp.github.io/magic/
 ---
 
 ## サイト概要
@@ -57,7 +56,7 @@
 
 ---
 
-## 🚀 ローカルでの動作確認（とても簡単）
+## 🚀 ローカルでの動作確認
 
 このサイトは**完全な静的サイト**なので、PHPサーバーや DB は不要です。
 
@@ -130,7 +129,7 @@ magic/
 
 **島田則幸（Noriyuki Shimada）**
 
-- 🌐 [ポートフォリオサイト](http://shimada.atwebpages.com/pf/)
+- 🌐 [ポートフォリオサイト](https://ns7jp.github.io/)
 - 📂 [ほかの作品](https://github.com/ns7jp/works)
 - 📧 net7jp@gmail.com
 
