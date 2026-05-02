@@ -1,30 +1,87 @@
 <!DOCTYPE html>
+<!--
+  ============================================================
+  MagicMoon コーポレートサイト - トップページ
+  ============================================================
+  このファイルはWebサイトの「玄関」となるトップページです。
+  HTMLは「HyperText Markup Language」の略で、
+  Webページの「骨組み（構造）」を作るための言語です。
+  ※ <!DOCTYPE html> は「これはHTML5で書かれた文書ですよ」という宣言です。
+  ============================================================
+-->
+
+<!-- lang="ja" は「このページの言語は日本語です」という指定。検索エンジンや読み上げソフトに伝わります -->
 <html lang="ja">
+
+<!-- =================================================================
+     <head>タグ：ページの「設定情報」を書く場所
+     ここに書いた内容はブラウザに表示されません。
+     文字コード、タイトル、CSS読み込みなど「裏方」の情報を入れます。
+     ================================================================= -->
 <head>
+    <!-- charset="UTF-8"：文字化けを防ぐための文字コード指定（日本語を扱うので必須） -->
     <meta charset="UTF-8">
+
+    <!-- viewport設定：スマホ・タブレットで正しく表示するためのおまじない
+         width=device-width   → 画面幅に合わせる
+         initial-scale=1.0    → 初期表示の拡大率を等倍にする -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- <title>：ブラウザのタブに表示されるページ名（検索結果にも表示される重要な要素） -->
     <title>MagicMoon | ヨーロッパの美と光を、日本の空間へ</title>
+
+    <!-- 自作のCSSファイルを読み込む（見た目・デザインを担当する） -->
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- Google Fontsからおしゃれなフォントを読み込む
+         Noto Sans JP    → 日本語用のすっきりしたフォント
+         Playfair Display → ロゴなどに使う高級感のある英字フォント -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome：アイコン（矢印や虫眼鏡など）を簡単に使えるライブラリ -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
 </head>
+
+<!-- =================================================================
+     <body>タグ：実際にブラウザに表示される「中身」を書く場所
+     ここから下に書いた内容がユーザーの目に見えます。
+     ================================================================= -->
 <body>
-    <!-- ヘッダー -->
+
+    <!-- =========================================================
+         ヘッダー（ページの一番上に固定表示される帯）
+         <header>はHTML5で追加された「ヘッダー専用」のタグです。
+         ロゴやナビゲーションメニューを入れるのが一般的。
+         ========================================================= -->
     <header class="header">
         <div class="header-inner">
+
+            <!-- ロゴ（サイト名）。<h1>はページの中で最も重要な見出し
+                 トップページではサイト名を<h1>にするのがSEOで有利 -->
             <h1 class="logo">
                 <a href="index.html">MagicMoon</a>
             </h1>
+
+            <!-- ナビゲーション（メニュー）：<nav>はメニュー専用タグ
+                 id="nav" はJavaScriptから操作するための目印 -->
             <nav class="nav" id="nav">
+                <!-- <ul>は順序のないリスト（箇条書き）。<li>がその項目 -->
                 <ul class="nav-list">
                     <li><a href="index.html">ホーム</a></li>
+                    <!-- href="#business" のように#から始まるリンクはページ内ジャンプ
+                         (idが"business"の場所までスクロールする) -->
                     <li><a href="#business">事業内容</a></li>
                     <li><a href="case.html">納入事例</a></li>
                     <li><a href="#company">企業情報</a></li>
                     <li><a href="#contact">お問い合わせ</a></li>
                 </ul>
             </nav>
+
+            <!-- ハンバーガーメニュー（スマホ用の3本線ボタン）
+                 普段は隠れていて、画面が狭い時だけ表示されます
+                 aria-label：目が見えないユーザー向けの説明（読み上げソフトが読む） -->
             <button class="hamburger" id="hamburger" aria-label="メニューを開く">
+                <!-- <span>×3で3本の横線を表現（CSSでアニメーションさせる） -->
                 <span></span>
                 <span></span>
                 <span></span>
@@ -32,72 +89,113 @@
         </div>
     </header>
 
-    <!-- メインビジュアル -->
+    <!-- =========================================================
+         メインビジュアル（ヒーローセクション）
+         ページを開いて最初に目に入る、大きな画像とキャッチコピーの部分。
+         「ヒーロー」とはWeb業界の用語で「主役」という意味。
+         ========================================================= -->
     <section class="hero">
+        <!-- 背景画像を絶対配置で敷く -->
         <div class="hero-bg">
+            <!-- alt属性：画像が表示できないときに代わりに表示される文字
+                 視覚障害者向けの読み上げにも使われる重要な情報 -->
             <img src="image/BtoB空間デザインサポート.jpg" alt="設計図を描く職人">
         </div>
+        <!-- 背景の上に重ねるテキスト -->
         <div class="hero-content">
+            <!-- <br>は強制改行。スマホでも改行位置を制御したいときに使う -->
             <h2 class="hero-title">ヨーロッパの美と光を、<br>日本の空間へ</h2>
         </div>
     </section>
 
-    <!-- お知らせ -->
+    <!-- =========================================================
+         お知らせセクション
+         新着情報やお知らせを表示する領域
+         ========================================================= -->
     <section class="news">
+        <!-- container：横幅を制限して中央寄せするための共通クラス -->
         <div class="container">
             <h2 class="section-title">お知らせ</h2>
             <ul class="news-list">
+
+                <!-- お知らせ1件分。日付・カテゴリ・本文の3要素で構成 -->
                 <li class="news-item">
                     <span class="news-date">2025/11/08</span>
                     <span class="news-category">イベント</span>
                     <p class="news-text">【展示会出展】「第10回 空間デザインEXPO」に参加いたします</p>
                 </li>
+
                 <li class="news-item">
                     <span class="news-date">2025/10/21</span>
                     <span class="news-category">メディア</span>
                     <p class="news-text">空間デザイン専門誌「Design Edge」2025年11月号に納入事例が掲載されました</p>
                 </li>
+
             </ul>
         </div>
     </section>
 
-    <!-- 事業内容 -->
+    <!-- =========================================================
+         事業内容セクション
+         id="business" → ヘッダーの「事業内容」リンクからジャンプしてくる場所
+         ========================================================= -->
     <section class="business" id="business">
         <div class="container">
             <h2 class="section-title">事業内容</h2>
+
+            <!-- 3つの事業を横並びカードで表示する -->
             <div class="business-list">
+
+                <!-- 事業カード1：ヨーロッパ家具・照明 -->
                 <div class="business-item">
                     <div class="business-image">
                         <img src="image/ヨーロッパ家具.jpg" alt="ヨーロッパ家具・照明">
                     </div>
                     <h3 class="business-title">ヨーロッパ家具・照明<br>の輸入・販売</h3>
                 </div>
+
+                <!-- 事業カード2：パーソナルソーシング -->
                 <div class="business-item">
                     <div class="business-image">
                         <img src="image/パーソナルソーシング.jpg" alt="パーソナルソーシング">
                     </div>
                     <h3 class="business-title">パーソナルソーシング</h3>
                 </div>
+
+                <!-- 事業カード3：BtoB空間デザインサポート -->
                 <div class="business-item">
                     <div class="business-image">
                         <img src="image/BtoB空間デザインサポート.jpg" alt="BtoB空間デザインサポート">
                     </div>
                     <h3 class="business-title">BtoB空間デザインサポート</h3>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- 納入事例 -->
+    <!-- =========================================================
+         納入事例セクション（トップページの抜粋版）
+         詳細はcase.htmlへ誘導する
+         ========================================================= -->
     <section class="case" id="case">
         <div class="container">
             <h2 class="section-title">納入事例</h2>
+
+            <!-- 左に画像、右に情報の2カラム構成（CSS Gridで横並びにする） -->
             <div class="case-content">
+
+                <!-- 左側：事例の写真 -->
                 <div class="case-image">
                     <img src="image/納⼊事例Y社.jpg" alt="大手IT企業 Y社 納入事例">
                 </div>
+
+                <!-- 右側：会社名・詳細表・もっと見るボタン -->
                 <div class="case-info">
                     <h3 class="case-company">大手IT企業 Y社</h3>
+
+                    <!-- <table>：データを表形式で見せる
+                         <tr>=行(row)、<th>=見出しセル、<td>=データセル -->
                     <table class="case-table">
                         <tr>
                             <th>業種</th>
@@ -112,16 +210,24 @@
                             <td>イタリア製デザイン照明（特注品）、<br>デンマーク製モジュラーソファ、<br>特注アートウォール（壁面）</td>
                         </tr>
                     </table>
+
+                    <!-- 詳細ページへのリンク（→マークはCSSではなく文字として書いている） -->
                     <a href="case.html" class="btn-more">more →</a>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- 企業情報 -->
+    <!-- =========================================================
+         企業情報セクション
+         会社の基本情報と地図を表示する
+         ========================================================= -->
     <section class="company" id="company">
         <div class="container">
             <h2 class="section-title">企業情報</h2>
+
+            <!-- スマホで表が画面からはみ出した時に横スクロールできるようラップしておく -->
             <div class="company-table-wrapper">
                 <table class="company-table">
                     <tr>
@@ -150,23 +256,41 @@
                     </tr>
                 </table>
             </div>
+
+            <!-- 地図エリア -->
             <div class="map">
                 <h3 class="map-title">地図</h3>
                 <div class="map-embed">
+                    <!-- <iframe>：別のWebページを枠の中に埋め込むタグ
+                         ここではGoogle Mapsを埋め込んでいる
+                         loading="lazy" → 画面に表示される直前に読み込む（表示速度UP） -->
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3241.0924034423!2d139.70254731525882!3d35.66778798019773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188ca23a8e96a7%3A0x1d5c5c8d5a6e2e0!2z5p2x5Lqs6YO95riL6LC35Yy656We5a6u5YmN!5e0!3m2!1sja!2sjp!4v1699000000000!5m2!1sja!2sjp" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- お問い合わせ -->
+    <!-- =========================================================
+         お問い合わせセクション
+         <form>でユーザーから情報を受け取る部分
+         ========================================================= -->
     <section class="contact" id="contact">
         <div class="container">
             <h2 class="section-title">お問い合わせ</h2>
+
+            <!-- <form>：入力フォーム全体を囲むタグ
+                 id="contactForm" はJavaScriptから送信処理をフックするための目印 -->
             <form class="contact-form" id="contactForm">
+
+                <!-- 1行目：貴社名 と 担当者名 を横並び -->
                 <div class="form-row">
+                    <!-- form-group：ラベルと入力欄をセットにする単位 -->
                     <div class="form-group">
+                        <!-- <label for="〇〇"> と <input id="〇〇"> を一致させると
+                             ラベルクリックで入力欄にカーソルが移る -->
                         <label for="company-name">貴社名</label>
+                        <!-- type="text" → 文字を1行入力できる
+                             required → 未入力だと送信できない（ブラウザの標準機能） -->
                         <input type="text" id="company-name" name="company-name" required>
                     </div>
                     <div class="form-group">
@@ -174,13 +298,18 @@
                         <input type="text" id="name" name="name" required>
                     </div>
                 </div>
+
+                <!-- 2行目：メールアドレス と お問い合わせ種別 -->
                 <div class="form-row">
                     <div class="form-group">
                         <label for="email">メールアドレス</label>
+                        <!-- type="email" → メアド形式じゃないと警告が出る -->
                         <input type="email" id="email" name="email" required>
                     </div>
                     <div class="form-group">
                         <label for="inquiry-type">お問い合わせ種別</label>
+                        <!-- <select>：プルダウン式の選択肢
+                             <option>がそれぞれの選択肢 -->
                         <select id="inquiry-type" name="inquiry-type" required>
                             <option value="">選択してください</option>
                             <option value="service">サービス全般に関するご相談</option>
@@ -191,10 +320,17 @@
                         </select>
                     </div>
                 </div>
+
+                <!-- お問い合わせ内容（1行ぶち抜きで広く取る） -->
                 <div class="form-group full-width">
                     <label for="message">お問い合わせ内容</label>
+                    <!-- <textarea>：複数行のテキスト入力欄
+                         rows="6" → 初期表示の高さを6行ぶんにする -->
                     <textarea id="message" name="message" rows="6" required></textarea>
                 </div>
+
+                <!-- 送信ボタン
+                     type="submit" → クリックでフォームを送信する -->
                 <div class="form-submit">
                     <button type="submit" class="btn-submit">送信する</button>
                 </div>
@@ -202,11 +338,17 @@
         </div>
     </section>
 
-    <!-- フッター -->
+    <!-- =========================================================
+         フッター（ページ最下部）
+         <footer>はHTML5で追加された「フッター専用」のタグ
+         ========================================================= -->
     <footer class="footer">
         <p class="copyright">2015-2025 MagicMoon All Rights Reserved.</p>
     </footer>
 
+    <!-- JavaScriptファイルの読み込み
+         </body>の直前に置くことで、HTMLの読み込みが終わってから実行される
+         （ページの表示が早くなる定番テクニック） -->
     <script src="js/main.js"></script>
 </body>
 </html>

@@ -1,17 +1,44 @@
 <!DOCTYPE html>
+<!--
+  ============================================================
+  MagicMoon - 納入事例詳細ページ
+  ============================================================
+  index.html（トップページ）の「more →」ボタンから遷移してくるページです。
+  納入事例の詳細・ギャラリー画像（クリックで拡大表示）を載せています。
+  ============================================================
+-->
+
 <html lang="ja">
 <head>
+    <!-- 文字コード（UTF-8）：日本語を正しく表示するために必須 -->
     <meta charset="UTF-8">
+
+    <!-- スマホ対応のためのビューポート設定 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ブラウザのタブに表示されるタイトル
+         「| サイト名」を付けると、どのページか一目で分かる -->
     <title>納入事例 | MagicMoon</title>
+
+    <!-- 共通のCSSファイル（index.htmlと同じものを使う） -->
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- Google Fonts（日本語+英字フォント） -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- アイコンフォント -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
-    <!-- Lightbox CSS -->
+
+    <!-- Lightbox（ライトボックス）：画像をクリックすると拡大表示できるライブラリ
+         CDNから直接読み込んでいるので、自分でファイルをダウンロードする必要はない -->
     <link href="https://cdn.jsdelivr.net/npm/lightbox2@2.11.4/dist/css/lightbox.min.css" rel="stylesheet">
 </head>
 <body>
-    <!-- ヘッダー -->
+
+    <!-- =========================================================
+         ヘッダー（index.htmlと共通の構成）
+         ※ クラス・id名を統一しておくと、CSS・JSが両ページで使い回せる
+         ========================================================= -->
     <header class="header">
         <div class="header-inner">
             <h1 class="logo">
@@ -20,7 +47,10 @@
             <nav class="nav" id="nav">
                 <ul class="nav-list">
                     <li><a href="index.html">ホーム</a></li>
+                    <!-- index.html#business → トップに戻ってから事業内容セクションへジャンプ -->
                     <li><a href="index.html#business">事業内容</a></li>
+                    <!-- 現在開いているページのリンクには class="active" を付ける
+                         CSSでハイライト色を変えて「今ココ」を示す -->
                     <li><a href="case.html" class="active">納入事例</a></li>
                     <li><a href="index.html#company">企業情報</a></li>
                     <li><a href="index.html#contact">お問い合わせ</a></li>
@@ -34,20 +64,32 @@
         </div>
     </header>
 
-    <!-- ページタイトル -->
+    <!-- =========================================================
+         ページタイトル（このページ専用の大見出し）
+         トップページのヒーロー画像の代わりに、シンプルなタイトル帯を表示
+         ========================================================= -->
     <section class="page-header">
         <div class="container">
             <h2 class="page-title">納入事例</h2>
         </div>
     </section>
 
-    <!-- 納入事例詳細 -->
+    <!-- =========================================================
+         納入事例の詳細セクション
+         左に大きな画像、右に会社情報の表を表示する
+         ========================================================= -->
     <section class="case-detail">
         <div class="container">
+
+            <!-- 画像と詳細情報を2カラムで並べるラッパー -->
             <div class="case-detail-content">
+
+                <!-- 左カラム：エントランスロビーの写真 -->
                 <div class="case-detail-image">
                     <img src="image/ギャラリー1.jpg" alt="大手IT企業 Y社 エントランスロビー">
                 </div>
+
+                <!-- 右カラム：会社名と事例情報の表 -->
                 <div class="case-detail-info">
                     <h3 class="case-detail-company">大手IT企業 Y社</h3>
                     <table class="case-detail-table">
@@ -66,7 +108,8 @@
                     </table>
                 </div>
             </div>
-            
+
+            <!-- プロジェクトの解説文（複数の段落） -->
             <div class="case-description">
                 <p>大手IT企業Y社様の本社ビルリニューアルプロジェクトにおいて、1階エントランスロビーおよび役員会議室の空間デザインをサポートいたしました。</p>
                 <p>「先進性」と「温かみ」を両立させたいというご要望に応え、イタリアの名門照明メーカーによる特注品のデザイン照明を中心に、デンマークの老舗家具ブランドによるモジュラーソファ、そして日本の職人による特注アートウォールを組み合わせた空間を提案いたしました。</p>
@@ -75,58 +118,86 @@
         </div>
     </section>
 
-    <!-- ギャラリー -->
+    <!-- =========================================================
+         ギャラリーセクション
+         画像をクリックすると拡大表示される（Lightboxの機能）
+         ========================================================= -->
     <section class="gallery">
         <div class="container">
             <h2 class="section-title">ギャラリー</h2>
+
+            <!-- 3列グリッドで画像を並べる（CSSで grid-template-columns を使う） -->
             <div class="gallery-grid">
+
+                <!--
+                  ↓ Lightboxの仕組み
+                  <a href="...">  → 拡大表示する画像のパス
+                  data-lightbox="gallery"  → 同じ値の画像同士でグループ化（前後切替できる）
+                  data-title="..."         → 拡大時に下部に表示されるキャプション
+                -->
                 <a href="image/ギャラリー2.jpg" data-lightbox="gallery" data-title="エントランスロビー - モジュラーソファ">
                     <img src="image/ギャラリー2.jpg" alt="エントランスロビー - モジュラーソファ">
                 </a>
+
                 <a href="image/メインスライド2.jpg" data-lightbox="gallery" data-title="会議スペース">
                     <img src="image/メインスライド2.jpg" alt="会議スペース">
                 </a>
+
                 <a href="image/メインスライド.jpg" data-lightbox="gallery" data-title="オフィス廊下">
                     <img src="image/メインスライド.jpg" alt="オフィス廊下">
                 </a>
+
                 <a href="image/納入事例ヘッダー.jpg" data-lightbox="gallery" data-title="グリーンスペース">
                     <img src="image/納入事例ヘッダー.jpg" alt="グリーンスペース">
                 </a>
+
                 <a href="image/納入事例Y社.jpg" data-lightbox="gallery" data-title="役員会議室">
                     <img src="image/納入事例Y社.jpg" alt="役員会議室">
                 </a>
+
                 <a href="image/ギャラリー3.jpg" data-lightbox="gallery" data-title="ワークスペース">
                     <img src="image/ギャラリー3.jpg" alt="ワークスペース">
                 </a>
+
             </div>
         </div>
     </section>
 
-    <!-- 戻るリンク -->
+    <!-- =========================================================
+         戻るリンク（トップページへ戻るボタン）
+         ========================================================= -->
     <section class="back-link">
         <div class="container">
+            <!-- <i class="fas fa-arrow-left"></i> はFont Awesomeの「左矢印」アイコン -->
             <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> トップページへ戻る</a>
         </div>
     </section>
 
-    <!-- フッター -->
+    <!-- フッター（コピーライト表示） -->
     <footer class="footer">
         <p class="copyright">2015-2025 MagicMoon All Rights Reserved.</p>
     </footer>
 
-    <!-- jQuery -->
+    <!-- =========================================================
+         JavaScriptの読み込み（順番が重要！）
+         1. jQuery        → Lightboxが必要としているライブラリ
+         2. Lightbox本体  → jQueryを使って動くので、jQueryの後に読み込む
+         3. main.js       → 自作のJS（ハンバーガーメニューなど）
+         ========================================================= -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-    <!-- Lightbox JS -->
     <script src="https://cdn.jsdelivr.net/npm/lightbox2@2.11.4/dist/js/lightbox.min.js"></script>
     <script src="js/main.js"></script>
+
+    <!-- Lightboxの動作をカスタマイズする設定
+         ※ <script>タグの中に直接JSを書くこともできる -->
     <script>
-        // Lightbox設定
+        // lightbox.option() で設定値を変更できる
         lightbox.option({
-            'resizeDuration': 200,
-            'wrapAround': true,
-            'albumLabel': '画像 %1 / %2',
-            'fadeDuration': 300,
-            'imageFadeDuration': 300
+            'resizeDuration': 200,        // 画像サイズの変更にかかる時間（ミリ秒）
+            'wrapAround': true,           // 最後の画像の次に最初に戻る（無限ループ）
+            'albumLabel': '画像 %1 / %2', // 「画像 1 / 6」のように現在位置を表示
+            'fadeDuration': 300,          // 背景フェードの時間
+            'imageFadeDuration': 300      // 画像切替のフェード時間
         });
     </script>
 </body>
