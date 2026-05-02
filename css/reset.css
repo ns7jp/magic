@@ -1,8 +1,41 @@
 @charset "utf-8";
+/* ============================================================
+   リセットCSS（Reset CSS）
+   ------------------------------------------------------------
+   ブラウザは、何もスタイルを書かなくても各タグに「初期スタイル」を
+   勝手に適用しています（例：<h1>は大きい、<ul>に黒丸が付く 等）。
+   しかも、その初期スタイルはブラウザごとに微妙に違うため、
+   そのままだとデザインがブラウザによってバラついてしまいます。
+
+   そこで、このファイルで「全部の初期スタイルを一度リセット」して
+   どのブラウザでも同じスタートラインに揃える、というのが目的です。
+
+   ※ このプロジェクトでは style.css 側にもリセット記述があるため、
+      reset.css は補助的な役割になっています。
+   ============================================================ */
+
+
+/* ----------------------------------------------------
+   html要素：ルート要素のフォント基準を設定
+   ---------------------------------------------------- */
 html {
+    /* font-size: 62.5% は、1rem = 10px に揃える定番テクニック。
+       （ブラウザのデフォルトは 16px なので 16×62.5% = 10px）
+       こうすると 1.6rem = 16px のように計算がしやすくなる。 */
     font-size: 62.5%;
+
+    /* ページ内リンク（#xxx）クリック時に滑らかにスクロールさせる */
     scroll-behavior: smooth;
-    } 
+}
+
+
+/* ----------------------------------------------------
+   要素一括リセット
+   ----------------------------------------------------
+   多数のタグをカンマで区切って同時に指定。
+   margin・padding・borderなどを一度ゼロにすることで、
+   ブラウザの初期スタイルを打ち消す。
+   ---------------------------------------------------- */
 html, body, div, span, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 abbr, address, cite, code,
@@ -12,88 +45,137 @@ b, i,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, figcaption, figure, 
+article, aside, canvas, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section, summary,
 time, mark, audio, video {
-    margin:0;
-    padding:0;
-    border:0;
-    outline:0;
-    vertical-align:baseline;
-    background:transparent;
-    font-weight: normal;
+    margin: 0;                    /* 外側の余白をゼロに */
+    padding: 0;                   /* 内側の余白をゼロに */
+    border: 0;                    /* 枠線をゼロに */
+    outline: 0;                   /* フォーカス時の枠もゼロに */
+    vertical-align: baseline;     /* 縦方向の位置を揃える */
+    background: transparent;      /* 背景色を透明に */
+    font-weight: normal;          /* 太字を解除（h1～h6も普通の太さに） */
 }
 
+
+/* ----------------------------------------------------
+   bodyの行の高さを一旦リセット
+   ---------------------------------------------------- */
 body {
-    line-height:1;
+    line-height: 1;
 }
 
-article,aside,details,figcaption,figure,
-footer,header,hgroup,menu,nav,section { 
-    display:block;
+
+/* ----------------------------------------------------
+   HTML5の新タグを古いブラウザでも block 表示にする
+   ----------------------------------------------------
+   article・section などはHTML5で追加された新しいタグ。
+   IE9以前など古いブラウザは inline 扱いにしてしまうので
+   明示的に display: block を指定して矯正する。
+   ---------------------------------------------------- */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
 }
 
+
+/* ----------------------------------------------------
+   ナビゲーション内のリストから「・」を消す
+   ---------------------------------------------------- */
 nav ul {
-    list-style:none;
+    list-style: none;
 }
 
+
+/* ----------------------------------------------------
+   引用タグの自動クォーテーションマークを消す
+   ---------------------------------------------------- */
 blockquote, q {
-    quotes:none;
+    quotes: none;
 }
 
 blockquote:before, blockquote:after,
 q:before, q:after {
-    content:'';
-    content:none;
+    content: '';
+    content: none;
 }
 
+
+/* ----------------------------------------------------
+   リンク（aタグ）の初期化
+   ---------------------------------------------------- */
 a {
-    margin:0;
-    padding:0;
-    font-size:100%;
-    vertical-align:baseline;
-    background:transparent;
+    margin: 0;
+    padding: 0;
+    font-size: 100%;             /* 親要素と同じ文字サイズ */
+    vertical-align: baseline;
+    background: transparent;
+    text-decoration: none;       /* 下線を消す */
+}
+
+
+/* ----------------------------------------------------
+   <ins>タグ（追加されたテキストの意味）の見た目調整
+   ---------------------------------------------------- */
+ins {
+    background-color: #ff9;     /* 黄色のマーカー風背景 */
+    color: #000;
     text-decoration: none;
 }
 
-/* change colours to suit your needs */
-ins {
-    background-color:#ff9;
-    color:#000;
-    text-decoration:none;
-}
 
-/* change colours to suit your needs */
+/* ----------------------------------------------------
+   <mark>タグ（強調・ハイライト）の見た目調整
+   ---------------------------------------------------- */
 mark {
-    background-color:#ff9;
-    color:#000; 
-    font-style:italic;
-    font-weight:bold;
+    background-color: #ff9;
+    color: #000;
+    font-style: italic;
+    font-weight: bold;
 }
 
+
+/* ----------------------------------------------------
+   <del>タグ（削除されたテキスト）に取り消し線
+   ---------------------------------------------------- */
 del {
     text-decoration: line-through;
 }
 
+
+/* ----------------------------------------------------
+   <abbr>・<dfn>（略語・用語定義）にホバーヒント表示
+   ---------------------------------------------------- */
 abbr[title], dfn[title] {
-    border-bottom:1px dotted;
-    cursor:help;
+    border-bottom: 1px dotted;   /* 点線の下線で「補足あり」を示す */
+    cursor: help;                /* カーソルが「？」マークに */
 }
 
+
+/* ----------------------------------------------------
+   表のセルのスキマを消す
+   ---------------------------------------------------- */
 table {
-    border-collapse:collapse;
-    border-spacing:0;
+    border-collapse: collapse;   /* 隣り合うセルの罫線を1本にまとめる */
+    border-spacing: 0;           /* セル間の余白を0に */
 }
 
-/* change border colour to suit your needs */
+
+/* ----------------------------------------------------
+   <hr>（区切り線）の見た目調整
+   ---------------------------------------------------- */
 hr {
-    display:block;
-    border:0;   
-    border-top:1px solid #cccccc;
-    margin:1em 0;
-    padding:0;
+    display: block;
+    border: 0;
+    border-top: 1px solid #cccccc;
+    margin: 1em 0;               /* 上下に1文字分の余白 */
+    padding: 0;
 }
 
+
+/* ----------------------------------------------------
+   フォーム部品の縦位置を中央揃えに
+   ---------------------------------------------------- */
 input, select {
-    vertical-align:middle;
+    vertical-align: middle;
 }

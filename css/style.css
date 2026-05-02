@@ -1,131 +1,183 @@
-/* ============================================
-   MagicMoon - Luxury Style CSS
-   ============================================ */
+/* ============================================================
+   MagicMoon - メインスタイルシート（CSSファイル）
+   ============================================================
+   CSSは「Cascading Style Sheets」の略で、
+   HTMLで作った骨組みに「色・大きさ・配置」などの装飾を付ける言語です。
+   セレクタ { プロパティ: 値; } の形で書きます。
 
-/* カスタムプロパティ（CSS変数） */
+   このファイルではゴールド×ブラックの「高級感」を演出する
+   ラグジュアリースタイルを実装しています。
+   ============================================================ */
+
+
+/* ============================================================
+   カスタムプロパティ（CSS変数）
+   ------------------------------------------------------------
+   :root は「HTML全体のルート要素」のこと。
+   ここで --変数名: 値; と書くと、後から var(--変数名) で呼び出せます。
+   色やフォントサイズを一括管理できるので、修正がラク！
+   ============================================================ */
 :root {
-    --primary-gold: #c9a962;
-    --primary-gold-light: #e5d4a1;
-    --primary-gold-dark: #9e7e3e;
-    --dark-bg: #1a1a1a;
-    --darker-bg: #0d0d0d;
-    --text-light: #ffffff;
-    --text-gray: #b3b3b3;
-    --text-dark: #333333;
+    /* メインカラー：ゴールド系の3色（明るい・標準・暗い） */
+    --primary-gold: #c9a962;        /* 標準ゴールド */
+    --primary-gold-light: #e5d4a1;  /* 明るいゴールド（ハイライト用） */
+    --primary-gold-dark: #9e7e3e;   /* 暗いゴールド（文字や枠線用） */
+
+    /* 背景色（黒系） */
+    --dark-bg: #1a1a1a;             /* 標準の暗い背景 */
+    --darker-bg: #0d0d0d;           /* さらに暗い背景（フッターなど） */
+
+    /* 文字色 */
+    --text-light: #ffffff;          /* 白（暗い背景の上に使う） */
+    --text-gray: #b3b3b3;           /* グレー（補助的な文字） */
+    --text-dark: #333333;           /* 濃いグレー（明るい背景の上に使う） */
+
+    /* グラデーション（複数色がなめらかに変化する効果） */
     --accent-gradient: linear-gradient(135deg, #c9a962 0%, #e5d4a1 50%, #c9a962 100%);
     --dark-gradient: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%);
+
+    /* 半透明の黒（オーバーレイ用） */
     --overlay-dark: rgba(0, 0, 0, 0.7);
+
+    /* 影の設定（ゴールド色の柔らかい光・濃い影） */
     --shadow-gold: 0 4px 30px rgba(201, 169, 98, 0.3);
     --shadow-dark: 0 10px 40px rgba(0, 0, 0, 0.5);
+
+    /* アニメーションの基本設定（0.4秒かけて滑らかに変化） */
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    --font-size-base: 1rem; /* 16px */
+
+    /* 文字サイズの基準（1rem = 16px） */
+    --font-size-base: 1rem;
 }
 
-/* リセットと基本スタイル */
+
+/* ============================================================
+   全要素共通のリセット
+   ------------------------------------------------------------
+   * は「すべての要素」を意味するセレクタ。
+   ::before / ::after は擬似要素（後述）にも適用するための指定。
+   ブラウザごとの初期スタイルを揃えるために、
+   margin（外側余白）とpadding（内側余白）を0にし、
+   box-sizing を border-box にすることで、
+   width: 100% を指定したときに padding と border を含めた幅にできます。
+   ============================================================ */
 *, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* HTMLルート要素の設定 */
 html {
-    font-size: 16px;
-    scroll-behavior: smooth;
+    font-size: 16px;          /* 1rem = 16px の基準 */
+    scroll-behavior: smooth;  /* ページ内リンクを滑らかにスクロール */
 }
 
+/* body（ページ本体）の基本スタイル */
 body {
-    font-family: 'Noto Sans JP', sans-serif;
+    font-family: 'Noto Sans JP', sans-serif; /* 日本語向けフォント */
     font-size: var(--font-size-base);
-    line-height: 1.8;
-    color: var(--text-dark);
-    background-color: #fafafa;
-    overflow-x: hidden;
+    line-height: 1.8;                         /* 行の高さ（読みやすさ向上） */
+    color: var(--text-dark);                  /* 標準の文字色 */
+    background-color: #fafafa;                /* ほぼ白の背景 */
+    overflow-x: hidden;                       /* 横スクロールバーを非表示 */
 }
 
+/* 画像が親要素からはみ出さないようにする */
 img {
-    max-width: 100%;
-    height: auto;
-    display: block;
+    max-width: 100%;  /* 親より大きくならない */
+    height: auto;     /* 縦横比を維持 */
+    display: block;   /* 下部の謎の隙間を消す */
 }
 
+/* リンクの基本スタイル */
 a {
-    text-decoration: none;
-    color: inherit;
-    transition: var(--transition-smooth);
+    text-decoration: none;          /* 下線を消す */
+    color: inherit;                 /* 親要素の色を引き継ぐ */
+    transition: var(--transition-smooth); /* ホバー時にふわっと変化 */
 }
 
+/* リスト（ul）の点を消す */
 ul {
     list-style: none;
 }
 
-/* コンテナ */
+/* 中央寄せ＆最大幅を指定する共通コンテナ */
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
+    max-width: 1200px;     /* 1200pxまで広がる */
+    margin: 0 auto;        /* 左右の余白を均等にして中央寄せ */
+    padding: 0 2rem;       /* 左右に余白を取って画面端に詰めない */
 }
 
-/* ============================================
-   ヘッダー
-   ============================================ */
+
+/* ============================================================
+   ヘッダー（ページ最上部の固定メニュー）
+   ============================================================ */
 .header {
-    position: fixed;
-    top: 0;
+    position: fixed;       /* 画面に固定（スクロールしても動かない） */
+    top: 0;                /* 上端に配置 */
     left: 0;
     width: 100%;
-    z-index: 1000;
+    z-index: 1000;         /* 他の要素より前面に表示（数値が大きいほど前） */
+    /* 半透明の黒グラデーション（ガラスのような表現） */
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.85) 100%);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(201, 169, 98, 0.2);
+    backdrop-filter: blur(20px);          /* 背景をぼかす（すりガラス効果） */
+    -webkit-backdrop-filter: blur(20px);  /* Safari用のベンダープレフィックス */
+    border-bottom: 1px solid rgba(201, 169, 98, 0.2); /* 下部に薄いゴールドのライン */
     transition: var(--transition-smooth);
 }
 
+/* スクロール後のヘッダー（JSで .scrolled クラスを付与する） */
 .header.scrolled {
-    background: rgba(0, 0, 0, 0.98);
-    box-shadow: var(--shadow-gold);
+    background: rgba(0, 0, 0, 0.98);  /* より不透明にしてくっきり */
+    box-shadow: var(--shadow-gold);    /* ゴールドの影を追加 */
 }
 
+/* ヘッダーの内側（ロゴ・ナビ・ハンバーガーを横並びにする） */
 .header-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: flex;                    /* Flexboxで横並びに */
+    justify-content: space-between;   /* 両端寄せ（ロゴ←→メニュー） */
+    align-items: center;              /* 縦方向中央揃え */
     padding: 1rem 2rem;
     max-width: 1400px;
     margin: 0 auto;
 }
 
+/* ロゴ（サイト名）のスタイル */
 .logo a {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Playfair Display', serif;  /* セリフ体で高級感UP */
     font-size: 1.8rem;
     font-weight: 600;
+    /* グラデーションを文字色にする裏ワザ */
     background: var(--accent-gradient);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -webkit-text-fill-color: transparent; /* 文字を透明にして背景が見える */
     background-clip: text;
-    letter-spacing: 2px;
-    position: relative;
+    letter-spacing: 2px;       /* 文字間隔を広げる */
+    position: relative;        /* ::after の位置基準にする */
 }
 
+/* ロゴホバー時に下から線が伸びるアニメーション */
 .logo a::after {
-    content: '';
+    content: '';                          /* 擬似要素は content 必須 */
     position: absolute;
     bottom: -5px;
     left: 0;
     width: 100%;
     height: 1px;
     background: var(--accent-gradient);
-    transform: scaleX(0);
+    transform: scaleX(0);                 /* 初期は横幅0（見えない） */
     transition: var(--transition-smooth);
 }
 
 .logo a:hover::after {
-    transform: scaleX(1);
+    transform: scaleX(1);  /* ホバーで横幅100%（線が伸びる） */
 }
 
+/* ナビゲーションリスト（メニュー項目を横並び） */
 .nav-list {
     display: flex;
-    gap: 2.5rem;
+    gap: 2.5rem;       /* 各リンク間の余白 */
 }
 
 .nav-list a {
@@ -137,18 +189,20 @@ ul {
     padding: 0.5rem 0;
 }
 
+/* ナビリンクの下に出る、左右に伸びる下線アニメーション */
 .nav-list a::before {
     content: '';
     position: absolute;
     bottom: 0;
-    left: 50%;
+    left: 50%;             /* 中央から伸びるように */
     width: 0;
     height: 2px;
     background: var(--accent-gradient);
     transition: var(--transition-smooth);
-    transform: translateX(-50%);
+    transform: translateX(-50%); /* X座標を-50%ずらして左右中央に */
 }
 
+/* ホバー時、または現在ページ(.active)で下線を表示 */
 .nav-list a:hover::before,
 .nav-list a.active::before {
     width: 100%;
@@ -159,20 +213,24 @@ ul {
     color: var(--primary-gold);
 }
 
-/* ハンバーガーメニュー */
+
+/* ============================================================
+   ハンバーガーメニュー（スマホ用の3本線ボタン）
+   ============================================================ */
 .hamburger {
-    display: none;
+    display: none;             /* PCでは非表示（後でメディアクエリで表示） */
     flex-direction: column;
     justify-content: space-between;
     width: 30px;
     height: 22px;
-    background: transparent;
+    background: transparent;   /* 透明（ボタンの枠を消す） */
     border: none;
-    cursor: pointer;
+    cursor: pointer;           /* カーソルが指マークに */
     padding: 0;
-    z-index: 1001;
+    z-index: 1001;             /* ナビより前面に */
 }
 
+/* 3本線（<span>×3）の各線 */
 .hamburger span {
     display: block;
     width: 100%;
@@ -182,47 +240,49 @@ ul {
     transition: var(--transition-smooth);
 }
 
+/* メニュー開時：3本線が「×」に変身するアニメーション */
 .hamburger.active span:nth-child(1) {
-    transform: rotate(45deg) translate(7px, 7px);
+    transform: rotate(45deg) translate(7px, 7px);  /* 上の線を斜めに */
 }
-
 .hamburger.active span:nth-child(2) {
-    opacity: 0;
+    opacity: 0;                                     /* 真ん中の線を消す */
 }
-
 .hamburger.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -7px);
+    transform: rotate(-45deg) translate(7px, -7px); /* 下の線を逆斜めに */
 }
 
-/* ============================================
-   メインビジュアル（ヒーロー）
-   ============================================ */
+
+/* ============================================================
+   メインビジュアル（ヒーローセクション）
+   ============================================================ */
 .hero {
     position: relative;
-    height: 100vh;
-    min-height: 600px;
+    height: 100vh;             /* 画面の高さいっぱい（vh = viewport height） */
+    min-height: 600px;         /* 最低でも600pxは確保 */
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+    overflow: hidden;          /* はみ出した内容は隠す */
 }
 
+/* ヒーロー背景画像 */
 .hero-bg {
-    position: absolute;
+    position: absolute;        /* 親(.hero)を基準に絶対配置 */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
+    z-index: -1;               /* 背景なのでテキストの後ろに */
 }
 
 .hero-bg img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    filter: brightness(0.4);
+    object-fit: cover;         /* 画像を切り抜いて全面に表示 */
+    filter: brightness(0.4);   /* 画像を暗くする（文字を見やすく） */
 }
 
+/* 背景画像の上に重ねる暗いグラデーション（コントラスト強化） */
 .hero-bg::after {
     content: '';
     position: absolute;
@@ -232,29 +292,32 @@ ul {
     height: 100%;
     background: linear-gradient(
         180deg,
-        rgba(0, 0, 0, 0.5) 0%,
-        rgba(0, 0, 0, 0.3) 50%,
-        rgba(0, 0, 0, 0.7) 100%
+        rgba(0, 0, 0, 0.5) 0%,   /* 上：濃い */
+        rgba(0, 0, 0, 0.3) 50%,  /* 中：薄い */
+        rgba(0, 0, 0, 0.7) 100%  /* 下：さらに濃い */
     );
 }
 
+/* ヒーロー内のテキスト */
 .hero-content {
     text-align: center;
     z-index: 1;
     padding: 0 2rem;
-    animation: fadeInUp 1.2s ease-out;
+    animation: fadeInUp 1.2s ease-out;  /* 下からふわっと表示 */
 }
 
 .hero-title {
     font-family: 'Noto Sans JP', sans-serif;
+    /* clamp(最小, 推奨, 最大)：画面幅に応じて文字サイズが自動調整される */
     font-size: clamp(2rem, 5vw, 3.5rem);
     font-weight: 300;
     color: var(--text-light);
     letter-spacing: 8px;
     line-height: 1.6;
-    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);  /* 文字に影 */
 }
 
+/* タイトル下の装飾線 */
 .hero-title::after {
     content: '';
     display: block;
@@ -264,20 +327,23 @@ ul {
     margin: 2rem auto 0;
 }
 
+/* @keyframes：アニメーションの動きを定義する
+   from が開始時、to が終了時の状態 */
 @keyframes fadeInUp {
     from {
-        opacity: 0;
-        transform: translateY(40px);
+        opacity: 0;                       /* 透明 */
+        transform: translateY(40px);      /* 下に40pxずらした位置 */
     }
     to {
-        opacity: 1;
-        transform: translateY(0);
+        opacity: 1;                       /* 不透明 */
+        transform: translateY(0);         /* 元の位置 */
     }
 }
 
-/* ============================================
-   セクション共通スタイル
-   ============================================ */
+
+/* ============================================================
+   セクション共通の見出しスタイル
+   ============================================================ */
 .section-title {
     font-family: 'Noto Sans JP', sans-serif;
     font-size: clamp(1.5rem, 3vw, 2rem);
@@ -288,6 +354,7 @@ ul {
     letter-spacing: 4px;
 }
 
+/* セクションタイトル下のゴールド線 */
 .section-title::after {
     content: '';
     display: block;
@@ -297,33 +364,36 @@ ul {
     margin: 1rem auto 0;
 }
 
-/* ============================================
+
+/* ============================================================
    お知らせセクション
-   ============================================ */
+   ============================================================ */
 .news {
-    padding: 6rem 0;
+    padding: 6rem 0;  /* 上下に大きく余白 */
     background: linear-gradient(135deg, #f8f6f0 0%, #ffffff 100%);
 }
 
 .news-list {
     max-width: 900px;
-    margin: 0 auto;
+    margin: 0 auto;   /* 中央寄せ */
 }
 
+/* お知らせ1件のカード */
 .news-item {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap;            /* 画面が狭いと折り返す */
     align-items: center;
     gap: 1.5rem;
     padding: 1.5rem 2rem;
     background: white;
-    border-radius: 8px;
+    border-radius: 8px;          /* 角を丸く */
     margin-bottom: 1rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); /* 薄い影で浮かせる */
     transition: var(--transition-smooth);
-    border-left: 3px solid var(--primary-gold);
+    border-left: 3px solid var(--primary-gold); /* 左に金の縦線 */
 }
 
+/* ホバー時に右にスライドして影を強める */
 .news-item:hover {
     transform: translateX(10px);
     box-shadow: var(--shadow-gold);
@@ -335,32 +405,35 @@ ul {
     font-weight: 500;
 }
 
+/* カテゴリ（タグ）のバッジ風デザイン */
 .news-category {
     font-size: 0.75rem;
     padding: 0.3rem 1rem;
     background: var(--accent-gradient);
     color: var(--dark-bg);
-    border-radius: 20px;
+    border-radius: 20px;        /* 完全な角丸（ピル型） */
     font-weight: 500;
 }
 
 .news-text {
-    flex: 1;
+    flex: 1;                    /* 残り幅をすべて使う */
     font-size: var(--font-size-base);
     color: var(--text-dark);
     min-width: 200px;
 }
 
-/* ============================================
+
+/* ============================================================
    事業内容セクション
-   ============================================ */
+   ============================================================ */
 .business {
     padding: 8rem 0;
-    background: var(--dark-gradient);
+    background: var(--dark-gradient);  /* 黒のグラデーション背景 */
     position: relative;
     overflow: hidden;
 }
 
+/* 背景にうっすらドット模様を敷く（SVGをbase64で埋め込み） */
 .business::before {
     content: '';
     position: absolute;
@@ -373,20 +446,23 @@ ul {
     opacity: 0.5;
 }
 
+/* 暗い背景なのでタイトルは白文字に上書き */
 .business .section-title {
     color: var(--text-light);
 }
 
+/* 事業カードを3列グリッドで並べる */
 .business-list {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);  /* 1fr=1等分。3つ均等配置 */
     gap: 2.5rem;
     position: relative;
     z-index: 1;
 }
 
+/* 事業カード本体 */
 .business-item {
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.03);  /* ほぼ透明な白 */
     border: 1px solid rgba(201, 169, 98, 0.2);
     border-radius: 12px;
     overflow: hidden;
@@ -394,6 +470,7 @@ ul {
     position: relative;
 }
 
+/* カード内に下から金色のグラデを重ねる装飾（ホバーで表示） */
 .business-item::before {
     content: '';
     position: absolute;
@@ -406,8 +483,9 @@ ul {
     transition: var(--transition-smooth);
 }
 
+/* ホバー時：浮き上がる＋金色の枠＋影 */
 .business-item:hover {
-    transform: translateY(-10px);
+    transform: translateY(-10px);   /* 上に10px移動（浮く効果） */
     border-color: var(--primary-gold);
     box-shadow: var(--shadow-gold);
 }
@@ -416,6 +494,7 @@ ul {
     opacity: 1;
 }
 
+/* カード上部の画像領域 */
 .business-image {
     height: 220px;
     overflow: hidden;
@@ -428,10 +507,12 @@ ul {
     transition: var(--transition-smooth);
 }
 
+/* ホバー時に画像をズームイン */
 .business-item:hover .business-image img {
-    transform: scale(1.1);
+    transform: scale(1.1);  /* 1.1倍に拡大 */
 }
 
+/* カード下部のタイトル領域 */
 .business-title {
     padding: 1.5rem;
     text-align: center;
@@ -443,21 +524,24 @@ ul {
     z-index: 1;
 }
 
-/* ============================================
-   納入事例セクション
-   ============================================ */
+
+/* ============================================================
+   納入事例セクション（トップページ用）
+   ============================================================ */
 .case {
     padding: 8rem 0;
     background: linear-gradient(135deg, #ffffff 0%, #f8f6f0 100%);
 }
 
+/* 画像と情報を2カラムで並べる */
 .case-content {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;  /* 半分ずつ */
     gap: 4rem;
     align-items: center;
 }
 
+/* 左側の画像エリア */
 .case-image {
     position: relative;
     border-radius: 12px;
@@ -465,16 +549,17 @@ ul {
     box-shadow: var(--shadow-dark);
 }
 
+/* 画像の周りに少し離してゴールドの枠線を表示する装飾 */
 .case-image::before {
     content: '';
     position: absolute;
-    top: -10px;
+    top: -10px;          /* 画像から10px外側に */
     left: -10px;
-    width: calc(100% + 20px);
+    width: calc(100% + 20px);  /* calc()で計算式を書ける */
     height: calc(100% + 20px);
     border: 2px solid var(--primary-gold);
     border-radius: 16px;
-    z-index: -1;
+    z-index: -1;         /* 画像の後ろに */
     opacity: 0.5;
 }
 
@@ -484,14 +569,17 @@ ul {
     transition: var(--transition-smooth);
 }
 
+/* ホバーで画像を少し拡大 */
 .case-image:hover img {
     transform: scale(1.05);
 }
 
+/* 右側の情報エリア */
 .case-info {
     padding: 2rem 0;
 }
 
+/* 会社名（左に金色の縦線アクセントを付ける） */
 .case-company {
     font-size: 1.8rem;
     font-weight: 600;
@@ -512,9 +600,10 @@ ul {
     border-radius: 2px;
 }
 
+/* 事例の詳細表 */
 .case-table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: collapse;  /* セル間のスキマをなくす */
     margin-bottom: 2rem;
 }
 
@@ -522,7 +611,7 @@ ul {
 .case-table td {
     padding: 1rem;
     text-align: left;
-    border-bottom: 1px solid rgba(201, 169, 98, 0.2);
+    border-bottom: 1px solid rgba(201, 169, 98, 0.2); /* 下に薄い区切り線 */
     font-size: var(--font-size-base);
 }
 
@@ -537,6 +626,7 @@ ul {
     color: var(--text-dark);
 }
 
+/* 「more →」ボタン（透明背景＋ゴールド枠） */
 .btn-more {
     display: inline-flex;
     align-items: center;
@@ -548,10 +638,11 @@ ul {
     font-size: 0.9rem;
     font-weight: 500;
     letter-spacing: 2px;
-    border-radius: 30px;
+    border-radius: 30px;        /* 完全な丸ボタン */
     transition: var(--transition-smooth);
 }
 
+/* ホバーで塗りつぶし＋右にスライド */
 .btn-more:hover {
     background: var(--accent-gradient);
     color: var(--dark-bg);
@@ -559,15 +650,17 @@ ul {
     transform: translateX(5px);
 }
 
-/* ============================================
+
+/* ============================================================
    企業情報セクション
-   ============================================ */
+   ============================================================ */
 .company {
     padding: 8rem 0;
     background: var(--dark-gradient);
     position: relative;
 }
 
+/* 中央にうっすら金色の光を放つ放射状グラデ */
 .company::before {
     content: '';
     position: absolute;
@@ -582,6 +675,7 @@ ul {
     color: var(--text-light);
 }
 
+/* 表のラッパー（小さい画面で横スクロールできるように） */
 .company-table-wrapper {
     overflow-x: auto;
     margin-bottom: 4rem;
@@ -589,19 +683,22 @@ ul {
     z-index: 1;
 }
 
+/* 企業情報の表 */
 .company-table {
     width: 100%;
-    min-width: 800px;
+    min-width: 800px;            /* 最低800pxの幅を確保（はみ出したらスクロール） */
     border-collapse: collapse;
     background: rgba(255, 255, 255, 0.03);
     border-radius: 12px;
     overflow: hidden;
 }
 
+/* 各行の下に薄いゴールドの区切り線 */
 .company-table tr {
     border-bottom: 1px solid rgba(201, 169, 98, 0.15);
 }
 
+/* 最後の行だけは線を消す（テーブル末尾の二重線対策） */
 .company-table tr:last-child {
     border-bottom: none;
 }
@@ -615,7 +712,7 @@ ul {
 
 .company-table th {
     width: 180px;
-    background: rgba(201, 169, 98, 0.1);
+    background: rgba(201, 169, 98, 0.1);  /* 見出し列に金の薄い帯 */
     color: var(--primary-gold);
     font-weight: 500;
     vertical-align: top;
@@ -625,6 +722,7 @@ ul {
     color: var(--text-light);
 }
 
+/* 地図エリア */
 .map {
     position: relative;
     z-index: 1;
@@ -643,14 +741,16 @@ ul {
     box-shadow: var(--shadow-gold);
 }
 
+/* 埋め込み地図に少しグレースケールを掛けて雰囲気を統一 */
 .map-embed iframe {
     display: block;
     filter: grayscale(20%) contrast(1.1);
 }
 
-/* ============================================
+
+/* ============================================================
    お問い合わせセクション
-   ============================================ */
+   ============================================================ */
 .contact {
     padding: 8rem 0;
     background: linear-gradient(135deg, #f8f6f0 0%, #ffffff 100%);
@@ -666,6 +766,7 @@ ul {
     border: 1px solid rgba(201, 169, 98, 0.2);
 }
 
+/* 入力欄を2列に並べる行 */
 .form-row {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -673,12 +774,14 @@ ul {
     margin-bottom: 1.5rem;
 }
 
+/* ラベル＋入力欄1セット */
 .form-group {
     margin-bottom: 1.5rem;
 }
 
+/* 横幅いっぱいの入力欄（メッセージ欄など） */
 .form-group.full-width {
-    grid-column: 1 / -1;
+    grid-column: 1 / -1;  /* グリッドの1列目から最終列まで */
 }
 
 .form-group label {
@@ -689,28 +792,31 @@ ul {
     color: var(--text-dark);
 }
 
+/* 入力欄の共通スタイル（input/select/textarea を一括で指定） */
 .form-group input,
 .form-group select,
 .form-group textarea {
     width: 100%;
     padding: 1rem 1.2rem;
     font-size: var(--font-size-base);
-    font-family: inherit;
+    font-family: inherit;            /* 親と同じフォントを使う */
     border: 2px solid #e0e0e0;
     border-radius: 8px;
     background: #fafafa;
     transition: var(--transition-smooth);
 }
 
+/* フォーカス時（クリックして入力中）：枠を金色に */
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-    outline: none;
+    outline: none;                   /* デフォルトの青枠を消す */
     border-color: var(--primary-gold);
     background: white;
-    box-shadow: 0 0 0 4px rgba(201, 169, 98, 0.1);
+    box-shadow: 0 0 0 4px rgba(201, 169, 98, 0.1); /* 金色のうっすらした輪郭 */
 }
 
+/* メッセージ欄は縦方向のみリサイズ可能に */
 .form-group textarea {
     resize: vertical;
     min-height: 150px;
@@ -721,6 +827,7 @@ ul {
     margin-top: 2rem;
 }
 
+/* 送信ボタン（ゴールドのグラデーション塗りつぶし） */
 .btn-submit {
     display: inline-block;
     padding: 1rem 4rem;
@@ -736,14 +843,16 @@ ul {
     box-shadow: var(--shadow-gold);
 }
 
+/* ホバーで上に浮き、影を強める */
 .btn-submit:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 40px rgba(201, 169, 98, 0.5);
 }
 
-/* ============================================
+
+/* ============================================================
    フッター
-   ============================================ */
+   ============================================================ */
 .footer {
     padding: 2rem 0;
     background: var(--darker-bg);
@@ -757,11 +866,14 @@ ul {
     letter-spacing: 1px;
 }
 
-/* ============================================
-   納入事例ページ（case.html）
-   ============================================ */
+
+/* ============================================================
+   納入事例ページ（case.html）専用のスタイル
+   ============================================================ */
+
+/* ページタイトル帯（ヒーローのシンプル版） */
 .page-header {
-    padding: 10rem 0 4rem;
+    padding: 10rem 0 4rem;  /* 上の余白を多めに（固定ヘッダーとの干渉を回避） */
     background: var(--dark-gradient);
     text-align: center;
 }
@@ -783,6 +895,7 @@ ul {
     margin: 1.5rem auto 0;
 }
 
+/* 事例詳細セクション */
 .case-detail {
     padding: 6rem 0;
     background: linear-gradient(135deg, #ffffff 0%, #f8f6f0 100%);
@@ -792,7 +905,7 @@ ul {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
-    align-items: start;
+    align-items: start;       /* 上揃え（高さが違っても上で合わせる） */
     margin-bottom: 4rem;
 }
 
@@ -803,6 +916,7 @@ ul {
     position: relative;
 }
 
+/* 画像周りの装飾枠（トップページの納入事例と同じ手法） */
 .case-detail-image::before {
     content: '';
     position: absolute;
@@ -860,6 +974,7 @@ ul {
     vertical-align: top;
 }
 
+/* 事例の説明文ボックス（左に金色の縦線アクセント） */
 .case-description {
     max-width: 900px;
     margin: 0 auto;
@@ -877,11 +992,15 @@ ul {
     color: var(--text-dark);
 }
 
+/* 最後の段落の下マージンは消す（不要な余白防止） */
 .case-description p:last-child {
     margin-bottom: 0;
 }
 
-/* ギャラリー */
+
+/* ============================================================
+   ギャラリー（case.html）
+   ============================================================ */
 .gallery {
     padding: 6rem 0;
     background: var(--dark-gradient);
@@ -891,20 +1010,23 @@ ul {
     color: var(--text-light);
 }
 
+/* 3列のグリッドレイアウト */
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
 }
 
+/* ギャラリー内の各画像リンク */
 .gallery-grid a {
     display: block;
     border-radius: 12px;
     overflow: hidden;
     position: relative;
-    aspect-ratio: 4/3;
+    aspect-ratio: 4/3;        /* アスペクト比を4:3に固定 */
 }
 
+/* ホバー時に画像の下半分に金色のグラデを重ねる */
 .gallery-grid a::before {
     content: '';
     position: absolute;
@@ -918,6 +1040,8 @@ ul {
     z-index: 1;
 }
 
+/* ホバー時に中央に虫眼鏡アイコンを表示
+   '\f00e' は Font Awesome の「虫眼鏡＋」のUnicodeコード */
 .gallery-grid a::after {
     content: '\f00e';
     font-family: 'Font Awesome 6 Free';
@@ -925,13 +1049,14 @@ ul {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0);
+    transform: translate(-50%, -50%) scale(0); /* 初期は0倍（見えない） */
     font-size: 2rem;
     color: white;
     z-index: 2;
     transition: var(--transition-smooth);
 }
 
+/* ホバー時：オーバーレイ表示・アイコンを通常サイズに */
 .gallery-grid a:hover::before {
     opacity: 1;
 }
@@ -947,11 +1072,15 @@ ul {
     transition: var(--transition-smooth);
 }
 
+/* ホバーで画像をズームイン */
 .gallery-grid a:hover img {
     transform: scale(1.1);
 }
 
-/* 戻るリンク */
+
+/* ============================================================
+   戻るリンク（case.html最下部）
+   ============================================================ */
 .back-link {
     padding: 4rem 0;
     background: linear-gradient(135deg, #f8f6f0 0%, #ffffff 100%);
@@ -961,7 +1090,7 @@ ul {
 .btn-back {
     display: inline-flex;
     align-items: center;
-    gap: 0.8rem;
+    gap: 0.8rem;            /* アイコンと文字の間隔 */
     padding: 1rem 2.5rem;
     background: transparent;
     border: 2px solid var(--primary-gold);
@@ -979,9 +1108,14 @@ ul {
     border-color: transparent;
 }
 
-/* ============================================
-   スクロールアニメーション
-   ============================================ */
+
+/* ============================================================
+   スクロールアニメーション（JavaScriptと連動）
+   ------------------------------------------------------------
+   .fade-in クラスが付いた要素は最初は透明＆下にずれた状態。
+   JavaScriptが画面に入ったタイミングで .visible を追加すると、
+   通常の見た目に戻ってフェードイン演出になる。
+   ============================================================ */
 .fade-in {
     opacity: 0;
     transform: translateY(30px);
@@ -993,16 +1127,23 @@ ul {
     transform: translateY(0);
 }
 
-/* ============================================
-   レスポンシブデザイン
-   ============================================ */
 
-/* タブレット（800px以下）*/
+/* ============================================================
+   レスポンシブデザイン（画面サイズに応じてレイアウト変更）
+   ------------------------------------------------------------
+   @media screen and (max-width: 〇〇px) { ... } の中に書いた内容は、
+   その画面幅以下のときだけ適用されます。
+   PC優先で書いて、小さい画面用に上書きする「デスクトップファースト」設計。
+   ============================================================ */
+
+/* ---------- タブレット（800px以下） ---------- */
 @media screen and (max-width: 800px) {
+
+    /* PCでは横並びだったナビゲーションを、画面右からスライドする形に変更 */
     .nav {
         position: fixed;
         top: 0;
-        right: -100%;
+        right: -100%;          /* 普段は画面の外（右側）に隠す */
         width: 80%;
         max-width: 400px;
         height: 100vh;
@@ -1012,15 +1153,18 @@ ul {
         box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
     }
 
+    /* JSで .active が付与されたら画面内にスライドイン */
     .nav.active {
         right: 0;
     }
 
+    /* メニュー項目を縦並びに */
     .nav-list {
         flex-direction: column;
         gap: 0;
     }
 
+    /* 各リンクの下に薄い区切り線 */
     .nav-list li {
         border-bottom: 1px solid rgba(201, 169, 98, 0.1);
     }
@@ -1031,10 +1175,12 @@ ul {
         font-size: 1rem;
     }
 
+    /* ハンバーガーボタンを表示（PC時はdisplay: none） */
     .hamburger {
         display: flex;
     }
 
+    /* 2カラムだったレイアウトを1カラムに変更 */
     .case-content {
         grid-template-columns: 1fr;
         gap: 2rem;
@@ -1046,10 +1192,11 @@ ul {
     }
 }
 
-/* モバイル（600px以下）*/
+/* ---------- モバイル（600px以下） ---------- */
 @media screen and (max-width: 600px) {
+
     .container {
-        padding: 0 1rem;
+        padding: 0 1rem;        /* 余白を狭めて画面を有効活用 */
     }
 
     .hero {
@@ -1057,9 +1204,10 @@ ul {
     }
 
     .hero-title {
-        letter-spacing: 4px;
+        letter-spacing: 4px;    /* 文字間隔を縮めて改行回避 */
     }
 
+    /* お知らせを縦並びに */
     .news-item {
         flex-direction: column;
         align-items: flex-start;
@@ -1067,11 +1215,13 @@ ul {
         padding: 1.2rem;
     }
 
+    /* 事業内容3列→1列に */
     .business-list {
         grid-template-columns: 1fr;
         gap: 1.5rem;
     }
 
+    /* フォームの2列を1列に */
     .form-row {
         grid-template-columns: 1fr;
         gap: 0;
@@ -1081,6 +1231,7 @@ ul {
         padding: 1.5rem;
     }
 
+    /* ギャラリー3列→1列に */
     .gallery-grid {
         grid-template-columns: 1fr;
         gap: 1rem;
@@ -1091,26 +1242,33 @@ ul {
     }
 }
 
-/* 企業情報テーブルのスクロール対応 */
+
+/* ============================================================
+   企業情報テーブルの横スクロール用スタイル（スマホ用）
+   ============================================================ */
 .company-table-wrapper {
-    -webkit-overflow-scrolling: touch;
+    -webkit-overflow-scrolling: touch;  /* iPhoneでの慣性スクロール */
 }
 
+/* スクロールバーの見た目をカスタマイズ（webkit系ブラウザのみ） */
 .company-table-wrapper::-webkit-scrollbar {
-    height: 8px;
+    height: 8px;                        /* バーの高さ */
 }
 
 .company-table-wrapper::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.1); /* スクロールバーの溝の色 */
     border-radius: 4px;
 }
 
 .company-table-wrapper::-webkit-scrollbar-thumb {
-    background: var(--primary-gold);
+    background: var(--primary-gold);    /* つまみの色（金色） */
     border-radius: 4px;
 }
 
-/* Lightboxカスタマイズ */
+
+/* ============================================================
+   Lightboxのキャプション（拡大画像の説明文）カスタマイズ
+   ============================================================ */
 .lb-data .lb-caption {
     font-family: 'Noto Sans JP', sans-serif;
     font-size: 0.95rem;
