@@ -18,6 +18,8 @@
   - `index.html` — トップページ（ヒーロー / 事業内容 / お知らせ / お問い合わせ）
   - `case.html` — 納入事例ページ（ギャラリー）
 
+各ファイルの詳しい役割、読む順番、処理の追い方は [CODE_WALKTHROUGH.md](./CODE_WALKTHROUGH.md) にまとめています。
+
 ---
 
 ## 技術構成
@@ -104,13 +106,15 @@ python -m http.server 8000
 
 ```
 magic/
+├── CODE_WALKTHROUGH.md ... 初学者向けの詳細なコード読解ガイド
 ├── index.html       ... トップページ
 ├── case.html        ... 納入事例ページ
+├── favicon.svg      ... ブラウザタブ用アイコン
 ├── css/
 │   ├── reset.css     ... リセットCSS
 │   └── style.css     ... メインスタイル（1100行超）
 ├── js/
-│   └── main.js       ... メインJavaScript（vanilla、約290行）
+│   └── main.js       ... メインJavaScript（vanilla、約390行）
 └── image/           ... 画像素材（訓練校提供）
 ```
 

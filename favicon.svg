@@ -1,3 +1,8 @@
+<!--
+  MagicMoon のファビコン（ブラウザタブ用アイコン）。
+  SVG はテキストで図形を描く画像形式です。
+  初学者向けには、rect が背景の角丸四角、circle が月と星を作っていると読むと分かりやすいです。
+-->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <rect width="64" height="64" rx="14" fill="#0d0d0d"/>
   <circle cx="32" cy="32" r="20" fill="#c9a962"/>
